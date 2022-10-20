@@ -8,6 +8,10 @@
 #include "color.h"
 #endif
 
+#ifdef POINTING_DEVICE_ENABLE
+#include "pointing_stuff.h"
+#endif
+
 userspace_config_t userspace_config;
 bool is_caps_lock_on;
 bool is_alt_tab_active = false;
@@ -140,6 +144,9 @@ void keyboard_post_init_user(void) {
 // #if defined(RGB_MATRIX_ENABLE)
 //     keyboard_post_init_rgb_matrix();
 // #endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_COMBINED)
+    pointing_device_set_cpi_combined_defaults();
+#endif
     keyboard_post_init_keymap();
 }
 
@@ -232,6 +239,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #if defined(RGBLIGHT_ENABLE)
     state = layer_state_set_rgb_light(state);
 #endif  // RGBLIGHT_ENABLE
+#if defined(HAPTIC_ENABLE)
+    state = layer_state_set_haptic(state);
+#endif  // HAPTIC_ENABLE
+#if defined(POINTING_DEVICE_ENABLE)
+    state = layer_state_set_pointing(state);
+#endif  // HAPTIC_ENABLE
     return layer_state_set_keymap(state);
 }
 

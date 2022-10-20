@@ -69,3 +69,10 @@ ifeq ($(strip $(PIMORONI_TRACKBALL_ENABLE)), yes)
     OPT_DEFS += -DPIMORONI_TRACKBALL_ENABLE
 endif
 
+ifeq ($(strip $(HAPTIC_ENABLE)), yes)
+    SRC += haptic_stuff.c
+endif
+
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    SRC += pointing_stuff.c
+endif
